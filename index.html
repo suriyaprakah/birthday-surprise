@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎂 Happy Birthday keerthika🎉</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    /* Background image (place file in images/). Example: images/IMG-20260121-WA0014 (1).jpg */
+    /* Use the relative path and URL-encode spaces/parentheses if needed */
+    background-image: url('background%20images/IMG-20260121-WA0014%20%281%29.jpg'), linear-gradient(135deg,#ff9a9e,#87cefa);
+    /* Show the entire image without cropping (may reveal gradient edges) */
+    background-size: contain, cover;
+    background-position: center center, center;
+    background-repeat: no-repeat, no-repeat;
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+}
+
+/* Full-cover background layer */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background-image: url('background%20images/IMG-20260121-WA0014%20%281%29.jpg');
+    background-size: cover medium;
+    background-position: center;
+    pointer-events:none;
+}
+
+    /* Side images (left & right) placed between cover and content */
+    .side-img{
+        position:fixed;
+        top:0;
+        bottom:0;
+        width:30%;
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+        z-index:1; /* between ::before (0) and .container (2) */
+        pointer-events:none;
+        opacity:0.98;
+    }
+    .left-img{left:0;background-image:url('background%20images/IMG-20260121-WA0008.jpg');}
+    .right-img{right:0;background-image:url('background%20images/IMG-20260121-WA0006.jpg');}
+
+
+.container{
+    background:#fff;
+    padding:25px 35px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+    z-index:2;
+}
+
+h1{color:#ff4d6d}
+
+button{
+    padding:10px 22px;
+    background:#ff4d6d;
+    border:none;
+    border-radius:20px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* Cake */
+.cake{
+    position:relative;
+    width:200px;
+    margin:25px auto;
+}
+
+.layer{
+    width:200px;
+    height:35px;
+    background:#8b4513;
+    border-radius:15px;
+    margin:5px auto;
+}
+
+.cream{
+    position:absolute;
+    top:0;
+    width:200px;
+    height:18px;
+    background:#fff;
+    border-radius:15px 15px 0 0;
+}
+
+.name{
+    position:absolute;
+    top:50px;
+    width:100%;
+    text-align:center;
+    color:#ff1493;
+    font-weight:bold;
+}
+
+/* Fruits */
+.fruit{position:absolute;width:14px;height:14px;border-radius:50%;}
+.f1{top:-8px;left:40px;background:red;}
+.f2{top:-10px;left:90px;background:purple;}
+.f3{top:-8px;left:140px;background:orange;}
+
+/* Candle */
+.candle{
+    position:absolute;
+    top:-30px;
+    left:95px;
+    width:10px;
+    height:30px;
+    background:#ff4d6d;
+}
+.flame{
+    position:absolute;
+    top:-15px;
+    left:-5px;
+    width:20px;
+    height:20px;
+    background:orange;
+    border-radius:50%;
+    animation:flicker .4s infinite alternate;
+}
+.flame.off{display:none}
+
+@keyframes flicker{
+    from{transform:scale(1);opacity:.7}
+    to{transform:scale(1.2);opacity:1}
+}
+
+/* Balloons */
+.balloon{
+    position:absolute;
+    bottom:-100px;
+    width:40px;
+    height:55px;
+    border-radius:50%;
+    animation:float 6s linear infinite;
+}
+@keyframes float{
+    to{transform:translateY(-120vh)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="side-img left-img" aria-hidden="true"></div>
+<div class="side-img right-img" aria-hidden="true"></div>
+
+<div class="container">
+        <!-- Background Music -->
+        <audio id="bgMusic" loop style="width:100%;margin-bottom:12px;display:block;">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    <h1>🎉 Happy Birthday keerthika 🎉</h1>
+    <p>Click start & blow candle 🎂</p>
+
+    <button onclick="startSurprise()">▶ Start Surprise</button>
+    <button id="musicBtn" onclick="toggleMusic()" style="margin-left:10px;">Play Music</button>
+
+    <div class="cake" onclick="blow()">
+        <div class="cream"></div>
+
+        <div class="fruit f1"></div>
+        <div class="fruit f2"></div>
+        <div class="fruit f3"></div>
+
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+
+        <div class="name">🫂 keerthika 🫂</div>
+
+        <div class="candle">
+            <div class="flame" id="flame"></div>
+        </div>
+    </div>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+
+function startSurprise(){
+    const audio = document.getElementById("bgMusic");
+    audio.play();
+    const btn = document.getElementById("musicBtn");
+    if(btn) btn.textContent = 'Pause Music';
+}
+
+function toggleMusic(){
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    if(!audio) return;
+    if(audio.paused){
+        audio.play();
+        if(btn) btn.textContent = 'Pause Music';
+    } else {
+        audio.pause();
+        if(btn) btn.textContent = 'Play Music';
+    }
+}
+
+function blow(){
+    document.getElementById("flame").classList.add("off");
+    document.getElementById("msg").innerHTML =
+    "🎉 Wish granted! Stay happy always 💖 🎂 Enjoy your special day 🎂";
+}
+
+// Balloons
+const colors=["#ff4d6d","#ffd93d","#6bcf63","#4d96ff"];
+for(let i=0;i<20;i++){
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=colors[Math.floor(Math.random()*colors.length)];
+    b.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
